@@ -1,0 +1,47 @@
+hosts:
+  - "localhost"
+
+loglevel: 4
+
+acl:
+  admin:
+    user:
+      - "admin@localhost"
+
+access_rules:
+  configure:
+    allow: admin
+  webadmin:
+    allow: admin
+
+listen:
+  -
+    port: 5222
+    module: ejabberd_c2s
+    tls: false
+    max_stanza_size: 65536
+
+  -
+    port: 5280
+    module: ejabberd_http
+    request_handlers:
+      "/admin": ejabberd_web_admin
+      "/websocket": ejabberd_http_ws
+    tls: false
+
+auth_method: internal
+default_db: mnesia
+
+modules:
+  mod_roster: {}
+  mod_stream_mgmt: {}
+  mod_carboncopy: {}
+  mod_ping: {}
+  mod_last: {}
+  mod_privacy: {}
+  mod_vcard: {}
+  mod_version: {}
+  mod_admin_extra: {}
+
+  mod_mam:
+    default: always

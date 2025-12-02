@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  ejabberd:
+    image: ejabberd/ecs:latest
+    container_name: ejabberd-compass
+    restart: unless-stopped
+    ports:
+      - "5222:5222"
+      - "5280:5280"
+      - "5269:5269"
+    volumes:
+      - ./ejabberd.yml:/opt/ejabberd/conf/ejabberd.yml
+      - ejabberd_data:/opt/ejabberd/database
+
+volumes:
+  ejabberd_data:
